@@ -106,38 +106,40 @@ class PickerUIAdapter extends ArrayAdapter<String> {
      */
     private void setTextItemStyle(TextView textItem, int position) {
 
-        if (position == centerPosition) {
+        if (position == centerPosition ||
+            position == (centerPosition - 1) ||
+            position == (centerPosition + 1)) {
             textItem.setTextAppearance(mContext, R.style.PickerUI_Center_Item);
             setTextCenterColor(textItem);
-            textItem.setRotationX(ROTATION_CENTER);
+//            textItem.setRotationX(ROTATION_CENTER);
             textItem.setAlpha((float) 1.0);
         } else if (position - 1 == centerPosition) {
             textItem.setTextAppearance(mContext, R.style.PickerUI_Near_Center_Item);
             setTextNoCenterColor(textItem);
-            textItem.setRotationX(ROTATION_TWICE_ABOVE);
+//            textItem.setRotationX(ROTATION_TWICE_ABOVE);
             textItem.setAlpha((float) 1.0);
         } else if (position - 2 == centerPosition) {
             textItem.setTextAppearance(mContext, R.style.PickerUI_Far_Center_Item);
             setTextNoCenterColor(textItem);
-            textItem.setRotationX(ROTATION_FIRST);
+//            textItem.setRotationX(ROTATION_FIRST);
             textItem.setAlpha((float) 0.7);
         } else if (position + 1 == centerPosition) {
             textItem.setTextAppearance(mContext, R.style.PickerUI_Near_Center_Item);
             setTextNoCenterColor(textItem);
-            textItem.setRotationX(ROTATION_BELOW);
+//            textItem.setRotationX(ROTATION_BELOW);
             textItem.setAlpha((float) 1.0);
         } else if (position + 2 == centerPosition) {
             textItem.setTextAppearance(mContext, R.style.PickerUI_Far_Center_Item);
             setTextNoCenterColor(textItem);
-            textItem.setRotationX(ROTATION_TWICE_BELOW);
+//            textItem.setRotationX(ROTATION_TWICE_BELOW);
             textItem.setAlpha((float) 0.7);
         } else {
 
-            if (position < centerPosition) {
-                textItem.setRotationX(ROTATION_BELOW_FAR);
-            } else {
-                textItem.setRotationX(ROTATION_ABOVE_FAR);
-            }
+//            if (position < centerPosition) {
+//                textItem.setRotationX(ROTATION_BELOW_FAR);
+//            } else {
+//                textItem.setRotationX(ROTATION_ABOVE_FAR);
+//            }
 
             textItem.setTextAppearance(mContext, R.style.PickerUI_Small_Item);
         }

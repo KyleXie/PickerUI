@@ -4,8 +4,8 @@
 
     <style name="PickerUI.Center.Item" parent="@android:style/Widget.TextView">
         <item name="android:textColor">@color/text_center_pickerui</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/textsize_center_pickerui_item</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="PickerUI.No.Center.Item" parent="@android:style/Widget.TextView">

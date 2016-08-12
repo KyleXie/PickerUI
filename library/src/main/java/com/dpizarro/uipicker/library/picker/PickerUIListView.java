@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,13 +33,13 @@ import java.util.List;
  */
 class PickerUIListView extends ListView {
 
-    private final static int ROW_HEIGHT = 40;
+    private final static int ROW_HEIGHT = 45;
     private PickerUIItemClickListener mItemClickListenerPickerUI;
     private PickerUIAdapter mPickerUIAdapter;
     private boolean scrollEnabled = false;
     private int lastPositionNotified;
     private int firstItem, scrollTop;
-    private List<String> items;
+    final private List<String> items = new ArrayList<>();
     private int which;
 
     /**
@@ -112,7 +113,8 @@ class PickerUIListView extends ListView {
     }
 
     private void init(List<String> items) {
-        this.items = items;
+        this.items.clear();
+        this.items.addAll(items);
 
         ViewTreeObserver observer = getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -122,7 +124,7 @@ class PickerUIListView extends ListView {
                 scrollEnabled = true;
 
                 if (PickerUIListView.this.items != null) {
-                    selectListItem(PickerUIListView.this.items.size() / 2, false);
+                    selectListItem(PickerUIListView.this.items.size() / 2, true);
                 }
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
@@ -185,11 +187,13 @@ class PickerUIListView extends ListView {
      */
     public void setItems(Context context, List<String> items, int idRequestPickerUI, int position,
             boolean itemsClickables) {
-        this.items = items;
+        this.items.clear();
+        this.items.addAll(items);
         this.which = idRequestPickerUI;
-        mPickerUIAdapter = new PickerUIAdapter(context, R.layout.pickerui_item, items, position,
-                itemsClickables, false);
+        mPickerUIAdapter = new PickerUIAdapter(context, R.layout.pickerui_item, this.items, position,
+            itemsClickables, false);
         setAdapter(mPickerUIAdapter);
+        mPickerUIAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -214,11 +218,14 @@ class PickerUIListView extends ListView {
                         throw new IllegalStateException(
                                 "You must assign a valid PickerUIListView.PickerUIItemClickListener first!");
                     }
+                    if (position < 0 || position >= items.size()) {
+                        return;
+                    }
                     mItemClickListenerPickerUI
                             .onItemClickItemPickerUI(which, position, items.get(position));
 
                 }
-            }, 200);
+            }, 100);
 
         }
     }
