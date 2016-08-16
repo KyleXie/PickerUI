@@ -124,7 +124,7 @@ class PickerUIListView extends ListView {
                 scrollEnabled = true;
 
                 if (PickerUIListView.this.items != null) {
-                    selectListItem(PickerUIListView.this.items.size() / 2, true);
+                    selectListItem(0, true);
                 }
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
